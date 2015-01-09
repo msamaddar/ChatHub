@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Test Chat</title>
+
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+
+    <script src="../Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="../signalr/hubs"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 jumbotron">
+                <h1>This is a test chat room</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                &nbsp;
+                <input type="hidden" id="hdnRoomName" name="hdnRoomName" value="onlyRoom" />
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <div>
+                        <span class="pull-left"><input type="text" id="txtUserName" class="form-control" name="txtUserName" style="width:175px;" /></span>
+                        <span class="pull-left" style="margin-left:10px;"><a href="javascript:void(0);" class="btn btn-primary" id="btnLogin" name="btnLogin">Login</a></span>
+                        <span class="pull-left" style="margin-left:10px;"><a href="javascript:void(0);" class="btn btn-warning" id="btnLogoff" name="btnLogoff">Logoff</a></span>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div id="divInfo">
+                    Please enter a name and click on login.
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                &nbsp;
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-8 well" style="min-height:250px; max-height:250px;">
+                <ul id="liMessageContainer"></ul>
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5>Logged Users</h5>
+                    </div>
+                    <div class="panel-body">
+                        <ul id="currentUsers"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <span class="pull-left">
+                        <input type="text" id="txtMessage" name="txtMessage" class="form-control" style="width:650px;" />
+                    </span>
+                    <span class="pull-left">
+                        <a href="javascript:void(0);" id="btnSend" name="btnSend" class="btn btn-primary" style="margin-left:15px;">Send</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        var chat;
+        var chatRoom;
+
+        $(document).ready(function () {
+            $.connection.hub.logging = true;
+
+            chat = $.connection.chat;
+
+            chat.client.newMessage = onNewMessage;
+            chat.client.roomName = onGetRoomName;
+            chat.client.recentPosts = onJoin;
+            chat.client.chatRoomUsers = onChatRoomUsers;
+
+            $('#btnSend').click(onSend);
+            $('#btnLogin').click(onLoggingIn);
+            $('#btnLogoff').hide();
+            $('#divInfo').html('Please enter a valid name and log in to the chat room').addClass('text-danger');
+            $('#btnLogoff').click(onLogoff);
+        });
+
+        function onLoggingIn() {
+            var userName = $('#userName').val();
+            if (userName == '') {
+                alert("Please enter a user name.");
+                return;
+            }
+
+            $.connection.hub.start()
+                            .done(function () {
+                                var chatRoom = chat.server.getRoomName();
+                            });
+
+        }
+
+        function onNewMessage(message) {
+            //alert(message);
+            $('#liMessageContainer').append('<li>' + message + '</li>');
+        }
+
+        function onJoin(posts) {
+            $(posts).each(function (i) {
+                $('#liMessageContainer').append('<li>' + this["UserName"] + ": " + this["Message"] + '</li>');
+            });
+        }
+
+        function onChatRoomUsers(users) {
+            $('#currentUsers').empty();
+            $(users).each(function (i) {
+                $('#currentUsers').append('<li>' + this["UserName"] + '</li>');
+            });
+        }
+
+        function onLogoff() {
+            chat.server.leaveRoom($('#hdnRoomName').val())
+                        .done(function () {
+                            $('#btnLogoff').hide();
+                            $('#btnLogin').show();
+                            $('#divInfo').html('You have signed off from the chat room. Please log in again to continue.')
+                                            .addClass('text-danger')
+                                            .removeClass('text-primary');
+                        });
+        }
+
+        function onGetRoomName(roomName) {
+            $('#hdnRoomName').val(roomName);
+            chat.server.joinRoom(roomName, $('#txtUserName').val());
+            $('#btnLogin').hide();
+            $('#btnLogoff').show();
+            $('#divInfo').html('You are logged in to the chat room.').removeClass('text-danger').addClass('text-primary');
+        }
+
+        function onSend() {
+            var msg = $('#txtMessage').val();
+            //chat.server.sendMessage(msg);
+            chat.server.sendMessageToRoom($('#hdnRoomName').val(), msg);
+            $('#txtMessage').val('');
+        }
+    </script>
+</body>
+</html>

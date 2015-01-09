@@ -1,0 +1,5 @@
+C:\Temp\SkarplineTest\TestChat\TestChat.DataView\bin\Debug\TestChat.DataView.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.DataView\bin\Debug\TestChat.DataView.pdb
+C:\Temp\SkarplineTest\TestChat\TestChat.DataView\obj\Debug\TestChat.DataView.csprojResolveAssemblyReference.cache
+C:\Temp\SkarplineTest\TestChat\TestChat.DataView\obj\Debug\TestChat.DataView.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.DataView\obj\Debug\TestChat.DataView.pdb

@@ -1,0 +1,4 @@
+C:\Temp\SkarplineTest\TestChat\TestChat.Model\bin\Debug\TestChat.Model.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.Model\bin\Debug\TestChat.Model.pdb
+C:\Temp\SkarplineTest\TestChat\TestChat.Model\obj\Debug\TestChat.Model.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.Model\obj\Debug\TestChat.Model.pdb

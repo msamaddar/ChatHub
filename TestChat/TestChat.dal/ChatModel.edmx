@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestChatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChatPost">
+          <Key>
+            <PropertyRef Name="ChatPostID" />
+          </Key>
+          <Property Name="ChatPostID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="ChatPosting" Type="varchar" MaxLength="2000" />
+          <Property Name="PostedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ChatRoom">
+          <Key>
+            <PropertyRef Name="ChatRoomID" />
+          </Key>
+          <Property Name="ChatRoomID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChatRoomName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ChatRoomUser">
+          <Key>
+            <PropertyRef Name="ChatRoomUserID" />
+          </Key>
+          <Property Name="ChatRoomUserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChatRoomID" Type="bigint" />
+          <Property Name="UserID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConnectionID" Type="varchar" MaxLength="500" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="ConnectedAt" Type="datetime" />
+          <Property Name="DisconnectedAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_ChatPost_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ChatPost" Type="Self.ChatPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ChatPost">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatRoomUser_ChatRoom">
+          <End Role="ChatRoom" Type="Self.ChatRoom" Multiplicity="0..1" />
+          <End Role="ChatRoomUser" Type="Self.ChatRoomUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChatRoom">
+              <PropertyRef Name="ChatRoomID" />
+            </Principal>
+            <Dependent Role="ChatRoomUser">
+              <PropertyRef Name="ChatRoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatRoomUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ChatRoomUser" Type="Self.ChatRoomUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ChatRoomUser">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestChatModelStoreContainer">
+          <EntitySet Name="ChatPost" EntityType="Self.ChatPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatRoom" EntityType="Self.ChatRoom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatRoomUser" EntityType="Self.ChatRoomUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ChatPost_User" Association="Self.FK_ChatPost_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatPost" EntitySet="ChatPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatRoomUser_ChatRoom" Association="Self.FK_ChatRoomUser_ChatRoom">
+            <End Role="ChatRoom" EntitySet="ChatRoom" />
+            <End Role="ChatRoomUser" EntitySet="ChatRoomUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatRoomUser_User" Association="Self.FK_ChatRoomUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatRoomUser" EntitySet="ChatRoomUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestChatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ChatPost">
+          <Key>
+            <PropertyRef Name="ChatPostID" />
+          </Key>
+          <Property Name="ChatPostID" Type="Int64" Nullable="false" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="ChatPosting" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="PostedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ChatPost_User" FromRole="ChatPost" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ChatRoom">
+          <Key>
+            <PropertyRef Name="ChatRoomID" />
+          </Key>
+          <Property Name="ChatRoomID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChatRoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ChatRoomUsers" Relationship="Self.FK_ChatRoomUser_ChatRoom" FromRole="ChatRoom" ToRole="ChatRoomUser" />
+        </EntityType>
+        <EntityType Name="ChatRoomUser">
+          <Key>
+            <PropertyRef Name="ChatRoomUserID" />
+          </Key>
+          <Property Name="ChatRoomUserID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChatRoomID" Type="Int64" />
+          <Property Name="UserID" Type="Int64" />
+          <NavigationProperty Name="ChatRoom" Relationship="Self.FK_ChatRoomUser_ChatRoom" FromRole="ChatRoomUser" ToRole="ChatRoom" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ChatRoomUser_User" FromRole="ChatRoomUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConnectionID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ConnectedAt" Type="DateTime" Precision="3" />
+          <Property Name="DisconnectedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ChatPosts" Relationship="Self.FK_ChatPost_User" FromRole="User" ToRole="ChatPost" />
+          <NavigationProperty Name="ChatRoomUsers" Relationship="Self.FK_ChatRoomUser_User" FromRole="User" ToRole="ChatRoomUser" />
+        </EntityType>
+        <Association Name="FK_ChatPost_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ChatPost" Type="Self.ChatPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ChatPost">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatRoomUser_ChatRoom">
+          <End Role="ChatRoom" Type="Self.ChatRoom" Multiplicity="0..1" />
+          <End Role="ChatRoomUser" Type="Self.ChatRoomUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChatRoom">
+              <PropertyRef Name="ChatRoomID" />
+            </Principal>
+            <Dependent Role="ChatRoomUser">
+              <PropertyRef Name="ChatRoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatRoomUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ChatRoomUser" Type="Self.ChatRoomUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ChatRoomUser">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestChatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChatPosts" EntityType="Self.ChatPost" />
+          <EntitySet Name="ChatRooms" EntityType="Self.ChatRoom" />
+          <EntitySet Name="ChatRoomUsers" EntityType="Self.ChatRoomUser" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_ChatPost_User" Association="Self.FK_ChatPost_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ChatPost" EntitySet="ChatPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatRoomUser_ChatRoom" Association="Self.FK_ChatRoomUser_ChatRoom">
+            <End Role="ChatRoom" EntitySet="ChatRooms" />
+            <End Role="ChatRoomUser" EntitySet="ChatRoomUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatRoomUser_User" Association="Self.FK_ChatRoomUser_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ChatRoomUser" EntitySet="ChatRoomUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestChatModelStoreContainer" CdmEntityContainer="TestChatEntities">
+          <EntitySetMapping Name="ChatPosts">
+            <EntityTypeMapping TypeName="TestChatModel.ChatPost">
+              <MappingFragment StoreEntitySet="ChatPost">
+                <ScalarProperty Name="ChatPostID" ColumnName="ChatPostID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ChatPosting" ColumnName="ChatPosting" />
+                <ScalarProperty Name="PostedAt" ColumnName="PostedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatRooms">
+            <EntityTypeMapping TypeName="TestChatModel.ChatRoom">
+              <MappingFragment StoreEntitySet="ChatRoom">
+                <ScalarProperty Name="ChatRoomID" ColumnName="ChatRoomID" />
+                <ScalarProperty Name="ChatRoomName" ColumnName="ChatRoomName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatRoomUsers">
+            <EntityTypeMapping TypeName="TestChatModel.ChatRoomUser">
+              <MappingFragment StoreEntitySet="ChatRoomUser">
+                <ScalarProperty Name="ChatRoomUserID" ColumnName="ChatRoomUserID" />
+                <ScalarProperty Name="ChatRoomID" ColumnName="ChatRoomID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TestChatModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ConnectedAt" ColumnName="ConnectedAt" />
+                <ScalarProperty Name="DisconnectedAt" ColumnName="DisconnectedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

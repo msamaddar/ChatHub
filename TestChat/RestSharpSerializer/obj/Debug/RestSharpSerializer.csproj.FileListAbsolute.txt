@@ -1,0 +1,8 @@
+C:\Temp\SkarplineTest\TestChat\RestSharpSerializer\bin\RestSharpSerializer.dll.config
+C:\Temp\SkarplineTest\TestChat\RestSharpSerializer\bin\RestSharpSerializer.dll
+C:\Temp\SkarplineTest\TestChat\RestSharpSerializer\bin\RestSharpSerializer.pdb
+C:\Temp\SkarplineTest\TestChat\RestSharpSerializer\bin\RestSharp.dll
+C:\Temp\SkarplineTest\TestChat\RestSharpSerializer\bin\RestSharp.xml
+C:\Temp\SkarplineTest\TestChat\RestSharpSerializer\obj\Debug\RestSharpSerializer.csprojResolveAssemblyReference.cache
+C:\Temp\SkarplineTest\TestChat\RestSharpSerializer\obj\Debug\RestSharpSerializer.dll
+C:\Temp\SkarplineTest\TestChat\RestSharpSerializer\obj\Debug\RestSharpSerializer.pdb

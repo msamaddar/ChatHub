@@ -1,0 +1,14 @@
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\TestChat.dal.dll.config
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\TestChat.dal.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\TestChat.dal.pdb
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\EntityFramework.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\EntityFramework.SqlServer.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\log4net.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\TestChat.Model.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\TestChat.Model.pdb
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\EntityFramework.xml
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\EntityFramework.SqlServer.xml
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\bin\Debug\log4net.xml
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\obj\Debug\TestChat.dal.csprojResolveAssemblyReference.cache
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\obj\Debug\TestChat.dal.dll
+C:\Temp\SkarplineTest\TestChat\TestChat.dal\obj\Debug\TestChat.dal.pdb

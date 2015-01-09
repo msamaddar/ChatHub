@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestChatModelStoreContainer" CdmEntityContainer="TestChatEntities">
+    <EntitySetMapping Name="ChatPosts">
+      <EntityTypeMapping TypeName="TestChatModel.ChatPost">
+        <MappingFragment StoreEntitySet="ChatPost">
+          <ScalarProperty Name="ChatPostID" ColumnName="ChatPostID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ChatPosting" ColumnName="ChatPosting" />
+          <ScalarProperty Name="PostedAt" ColumnName="PostedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChatRooms">
+      <EntityTypeMapping TypeName="TestChatModel.ChatRoom">
+        <MappingFragment StoreEntitySet="ChatRoom">
+          <ScalarProperty Name="ChatRoomID" ColumnName="ChatRoomID" />
+          <ScalarProperty Name="ChatRoomName" ColumnName="ChatRoomName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChatRoomUsers">
+      <EntityTypeMapping TypeName="TestChatModel.ChatRoomUser">
+        <MappingFragment StoreEntitySet="ChatRoomUser">
+          <ScalarProperty Name="ChatRoomUserID" ColumnName="ChatRoomUserID" />
+          <ScalarProperty Name="ChatRoomID" ColumnName="ChatRoomID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TestChatModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ConnectedAt" ColumnName="ConnectedAt" />
+          <ScalarProperty Name="DisconnectedAt" ColumnName="DisconnectedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

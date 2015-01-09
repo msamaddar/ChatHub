@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestChatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ChatPost">
+    <Key>
+      <PropertyRef Name="ChatPostID" />
+    </Key>
+    <Property Name="ChatPostID" Type="Int64" Nullable="false" />
+    <Property Name="UserID" Type="Int64" />
+    <Property Name="ChatPosting" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="PostedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK_ChatPost_User" FromRole="ChatPost" ToRole="User" />
+  </EntityType>
+  <EntityType Name="ChatRoom">
+    <Key>
+      <PropertyRef Name="ChatRoomID" />
+    </Key>
+    <Property Name="ChatRoomID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ChatRoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ChatRoomUsers" Relationship="Self.FK_ChatRoomUser_ChatRoom" FromRole="ChatRoom" ToRole="ChatRoomUser" />
+  </EntityType>
+  <EntityType Name="ChatRoomUser">
+    <Key>
+      <PropertyRef Name="ChatRoomUserID" />
+    </Key>
+    <Property Name="ChatRoomUserID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ChatRoomID" Type="Int64" />
+    <Property Name="UserID" Type="Int64" />
+    <NavigationProperty Name="ChatRoom" Relationship="Self.FK_ChatRoomUser_ChatRoom" FromRole="ChatRoomUser" ToRole="ChatRoom" />
+    <NavigationProperty Name="User" Relationship="Self.FK_ChatRoomUser_User" FromRole="ChatRoomUser" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ConnectionID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ConnectedAt" Type="DateTime" Precision="3" />
+    <Property Name="DisconnectedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ChatPosts" Relationship="Self.FK_ChatPost_User" FromRole="User" ToRole="ChatPost" />
+    <NavigationProperty Name="ChatRoomUsers" Relationship="Self.FK_ChatRoomUser_User" FromRole="User" ToRole="ChatRoomUser" />
+  </EntityType>
+  <Association Name="FK_ChatPost_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ChatPost" Type="Self.ChatPost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="ChatPost">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatRoomUser_ChatRoom">
+    <End Role="ChatRoom" Type="Self.ChatRoom" Multiplicity="0..1" />
+    <End Role="ChatRoomUser" Type="Self.ChatRoomUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChatRoom">
+        <PropertyRef Name="ChatRoomID" />
+      </Principal>
+      <Dependent Role="ChatRoomUser">
+        <PropertyRef Name="ChatRoomID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatRoomUser_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ChatRoomUser" Type="Self.ChatRoomUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="ChatRoomUser">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestChatEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ChatPosts" EntityType="Self.ChatPost" />
+    <EntitySet Name="ChatRooms" EntityType="Self.ChatRoom" />
+    <EntitySet Name="ChatRoomUsers" EntityType="Self.ChatRoomUser" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_ChatPost_User" Association="Self.FK_ChatPost_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ChatPost" EntitySet="ChatPosts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatRoomUser_ChatRoom" Association="Self.FK_ChatRoomUser_ChatRoom">
+      <End Role="ChatRoom" EntitySet="ChatRooms" />
+      <End Role="ChatRoomUser" EntitySet="ChatRoomUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatRoomUser_User" Association="Self.FK_ChatRoomUser_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ChatRoomUser" EntitySet="ChatRoomUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

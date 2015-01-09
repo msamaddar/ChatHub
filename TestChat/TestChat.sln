@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestChat", "TestChat\TestChat.csproj", "{F3F6738D-2C37-4653-A330-561359DD2D19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{20ABB157-BD65-46AA-B862-B7AAEC0FBE3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestSharpSerializer", "RestSharpSerializer\RestSharpSerializer.csproj", "{76823097-DFB2-48CE-BE2F-5B610213075E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestChat.dal", "TestChat.dal\TestChat.dal.csproj", "{ECC29857-97E7-4821-AABA-87FA5DF40D75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestChat.Model", "TestChat.Model\TestChat.Model.csproj", "{D0CCDF6A-52E3-414C-A99B-207D3564A99C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestChat.Business", "TestChat.Business\TestChat.Business.csproj", "{57A7F5F9-ECCC-4F99-A541-0B271593D65C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestChat.DataView", "TestChat.DataView\TestChat.DataView.csproj", "{3B051EA9-300B-43D2-9D49-50212A30A6B7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3F6738D-2C37-4653-A330-561359DD2D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3F6738D-2C37-4653-A330-561359DD2D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3F6738D-2C37-4653-A330-561359DD2D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3F6738D-2C37-4653-A330-561359DD2D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76823097-DFB2-48CE-BE2F-5B610213075E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76823097-DFB2-48CE-BE2F-5B610213075E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76823097-DFB2-48CE-BE2F-5B610213075E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76823097-DFB2-48CE-BE2F-5B610213075E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECC29857-97E7-4821-AABA-87FA5DF40D75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECC29857-97E7-4821-AABA-87FA5DF40D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECC29857-97E7-4821-AABA-87FA5DF40D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECC29857-97E7-4821-AABA-87FA5DF40D75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0CCDF6A-52E3-414C-A99B-207D3564A99C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0CCDF6A-52E3-414C-A99B-207D3564A99C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0CCDF6A-52E3-414C-A99B-207D3564A99C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0CCDF6A-52E3-414C-A99B-207D3564A99C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57A7F5F9-ECCC-4F99-A541-0B271593D65C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57A7F5F9-ECCC-4F99-A541-0B271593D65C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57A7F5F9-ECCC-4F99-A541-0B271593D65C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57A7F5F9-ECCC-4F99-A541-0B271593D65C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B051EA9-300B-43D2-9D49-50212A30A6B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B051EA9-300B-43D2-9D49-50212A30A6B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B051EA9-300B-43D2-9D49-50212A30A6B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B051EA9-300B-43D2-9D49-50212A30A6B7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestChatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ChatPost">
+    <Key>
+      <PropertyRef Name="ChatPostID" />
+    </Key>
+    <Property Name="ChatPostID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="bigint" />
+    <Property Name="ChatPosting" Type="varchar" MaxLength="2000" />
+    <Property Name="PostedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ChatRoom">
+    <Key>
+      <PropertyRef Name="ChatRoomID" />
+    </Key>
+    <Property Name="ChatRoomID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChatRoomName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ChatRoomUser">
+    <Key>
+      <PropertyRef Name="ChatRoomUserID" />
+    </Key>
+    <Property Name="ChatRoomUserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChatRoomID" Type="bigint" />
+    <Property Name="UserID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ConnectionID" Type="varchar" MaxLength="500" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="ConnectedAt" Type="datetime" />
+    <Property Name="DisconnectedAt" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_ChatPost_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ChatPost" Type="Self.ChatPost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="ChatPost">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatRoomUser_ChatRoom">
+    <End Role="ChatRoom" Type="Self.ChatRoom" Multiplicity="0..1" />
+    <End Role="ChatRoomUser" Type="Self.ChatRoomUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChatRoom">
+        <PropertyRef Name="ChatRoomID" />
+      </Principal>
+      <Dependent Role="ChatRoomUser">
+        <PropertyRef Name="ChatRoomID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatRoomUser_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ChatRoomUser" Type="Self.ChatRoomUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="ChatRoomUser">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestChatModelStoreContainer">
+    <EntitySet Name="ChatPost" EntityType="Self.ChatPost" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChatRoom" EntityType="Self.ChatRoom" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChatRoomUser" EntityType="Self.ChatRoomUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ChatPost_User" Association="Self.FK_ChatPost_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="ChatPost" EntitySet="ChatPost" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatRoomUser_ChatRoom" Association="Self.FK_ChatRoomUser_ChatRoom">
+      <End Role="ChatRoom" EntitySet="ChatRoom" />
+      <End Role="ChatRoomUser" EntitySet="ChatRoomUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatRoomUser_User" Association="Self.FK_ChatRoomUser_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="ChatRoomUser" EntitySet="ChatRoomUser" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
